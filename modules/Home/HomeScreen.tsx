@@ -9,6 +9,7 @@ import { CharacterEntity } from './entities/CharacterEntity';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from 'navigation';
+import { MuckCharacatersInteractor } from './interactor/MuckCharactersInteractor';
 
 export const SCREEN_TITLE = 'Characters list';
 type HomeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
@@ -22,6 +23,7 @@ export default function HomeScreen() {
       'https://rickandmortyapi.com/api'
     );
     const charactersInteractor = new RemoteCharactersInteractor(apiClient);
+    // const charactersInteractor = new MuckCharacatersInteractor();
     return charactersInteractor;
   }, []);
 

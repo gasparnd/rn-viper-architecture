@@ -8,9 +8,9 @@ export interface CharacterEntity {
   location: CharacterLocation;
   image: string;
   gender: string;
-  episode: [string];
+  episode: string[];
   url: string;
-  created: Date;
+  created: string;
 }
 
 export interface CharacterOrigin {

@@ -11,6 +11,7 @@ export function useCharactersPresenter(
 ): CharactersPresenterInterface {
   const [characters, setCharacters] = useState<CharacterEntity[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [totalElements, setTotalElements] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
 
   const getCharactaters = useCallback(
@@ -18,6 +19,7 @@ export function useCharactersPresenter(
       setLoading(true);
       try {
         const response = await interactor.getCharactaters(params);
+        setTotalElements(response.info.count);
         setCharacters((prevValue) => [...prevValue, ...response.results]);
       } catch (error) {
         console.log('🚀 ~ getCharactacters ~ error:', error);
@@ -29,9 +31,12 @@ export function useCharactersPresenter(
   );
 
   const fetchNextCharactersPage = useCallback(async () => {
+    if (characters.length === totalElements) {
+      return;
+    }
     setPage((prevPage) => prevPage + 1);
     await getCharactaters({ page: page + 1 });
-  }, [getCharactaters, page]);
+  }, [getCharactaters, page, totalElements, characters]);
 
   useEffect(() => {
     if (!interactor) {

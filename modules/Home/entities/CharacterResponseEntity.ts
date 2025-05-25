@@ -7,7 +7,7 @@ export interface CharacterResponseEntity {
 
 export interface CharacterResponseInfo {
   count: number;
-  page: number;
-  next: string;
-  prev: string;
+  pages: number;
+  next?: string;
+  prev?: string;
 }
